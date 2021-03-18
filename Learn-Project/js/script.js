@@ -13,7 +13,7 @@ const movieDB = {
 const movieList = document.querySelector('.promo__interactive-list'),
     btn = document.querySelector('.add button'),
     input = document.querySelector('.adding__input'),
-    checkbox = document.querySelector('.add input');
+    checkbox = document.querySelector('[type = "checkbox"]');
 
 function removeBlock(){
     document.querySelectorAll('.promo__adv img').forEach((el) => {
@@ -33,22 +33,32 @@ function movies(){
         movieList.innerHTML += `<li class="promo__interactive-item">${i + 1}. ${el}
         <div class="delete"></div>
         </li>`;
+        
     })
-    
+    document.querySelectorAll('.delete').forEach((el, i) => {
+        el.addEventListener('click', (e) =>{
+            e.target.parentElement.remove();
+            movieDB.movies.splice(i, 1);
+            movieDB.movies.sort();
+            movies();
+        })
+    })
 }
 btn.addEventListener('click', (e) =>{
     e.preventDefault();
-    movieDB.movies.push(input.value);
-    movieDB.movies.sort();
-    movies();
-    if(checkbox){
+    if(input.value){
+        movieDB.movies.push(input.value);
+        movieDB.movies.sort();
+        movies();
+    if(checkbox.checked){
         console.log(`Фильм ${input.value} добавлен в избранное`);
-    } 
-    input.value = '';
-    
+        } 
+        input.value = '';
+    }
 })
 
 removeBlock();
 changeGenre();
 changeBackground();
+
 movies();
