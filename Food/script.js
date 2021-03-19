@@ -76,12 +76,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     const btnModal = document.querySelectorAll('[data-modal]'),
         modal = document.querySelector('.modal'),
         modalClose = document.querySelector('.modal__close');
-        
+
+    function showModal(){
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        clearInterval(showScrollModal);
+    }
+    function closeModal(){
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
     btnModal.forEach(el => {
-        el.addEventListener('click', (e) => {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        })
+        el.addEventListener('click', showModal);
     })
     modalClose.addEventListener('click', closeModal)
 
@@ -90,10 +97,15 @@ document.addEventListener('DOMContentLoaded',()=>{
             closeModal();
         }
     })
-    function closeModal(){
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
+    function scrollModal(){
+        if(window.pageYOffset + document.documentElement.clientHeight
+            >= document.documentElement.scrollHeight){
+            showModal();
+            clearInterval(showScrollModal);
+        }
     }
+    const showScrollModal = setInterval(scrollModal, 200)
+
 })
 
 
