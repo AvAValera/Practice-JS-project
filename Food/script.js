@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     })
     hideTab();
     showTab();
-    const deadLine = '2021-03-19';
+    const deadLine = '2021-06-18';
     function getTime(time){
         let resultTime = Date.parse(time) - Date.parse(new Date());
         let days = Math.floor(resultTime /(1000 * 60 * 60 * 24));
@@ -44,6 +44,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
     };
     
+    let day = document.querySelector('#days'),
+        hour = document.querySelector('#hours'),
+        minute = document.querySelector('#minutes'),
+        second = document.querySelector('#seconds');
     setTime();
     function setTime(){
         function addZero(num){
@@ -55,19 +59,41 @@ document.addEventListener('DOMContentLoaded',()=>{
             }
         }
         getTime(deadLine);
-        let day = document.querySelector('#days'),
-            hour = document.querySelector('#hours'),
-            minute = document.querySelector('#minutes'),
-            second = document.querySelector('#seconds');
         day.innerHTML = addZero(res.days);
         hour.innerHTML = addZero(res.hours);
         minute.innerHTML = addZero(res.minutes);
         second.innerHTML = addZero(res.seconds);
-        if(res.resultTime <= 0){
-            clearInterval(timer);
-        }
     }
     const timer = setInterval(setTime, 1000)
+    if(res.result <= 0){
+        clearInterval(timer);
+        day.innerHTML = '00';
+        hour.innerHTML = '00';
+        minute.innerHTML = '00';
+        second.innerHTML = '00';
+    }
+
+    const btnModal = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalClose = document.querySelector('.modal__close');
+        
+    btnModal.forEach(el => {
+        el.addEventListener('click', (e) => {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        })
+    })
+    modalClose.addEventListener('click', closeModal)
+
+    modal.addEventListener('click', (e) => {
+        if(e.target.classList.contains('modal')){
+            closeModal();
+        }
+    })
+    function closeModal(){
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 })
 
 
