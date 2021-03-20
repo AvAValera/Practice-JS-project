@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener('DOMContentLoaded',()=>{
     const tabMenu = document.querySelector('.tabheader__items'),
         tabMenuItem = tabMenu.querySelectorAll('.tabheader__item'),
         tabContainer = document.querySelectorAll('.tabcontent');
@@ -106,6 +106,52 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     const showScrollModal = setInterval(scrollModal, 200)
 
+    class Card{
+        constructor(img, alt, title, text, price, parentSection, ...classesName){
+            this.img = img;
+            this.alt = alt;
+            this.title = title;
+            this.text = text;
+            this.price = price;
+            this.parent = document.querySelector(parentSection);
+            this.classesName = classesName;
+        }
+        render(){
+            const element = document.createElement('div')
+            if(this.classesName.length == 0){
+                element.classList.add("menu__item");
+            }else{
+                element.classList.add(this.classesName);
+            }
+            element.innerHTML = `
+            <img src=${this.img} alt=${this.alt}>
+            <h3 class="menu__item-subtitle">${this.title}"</h3>
+            <div class="menu__item-descr">${this.text}</div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                <div class="menu__item-cost">Цена:</div>
+                <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+            </div>`;
+            this.parent.append(element);
+        }
+    }
+    new Card(
+        "img/tabs/vegy.jpg",
+        'vegy',
+        'Меню "Фитнес"',
+        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+        333,
+        ".menu .container"
+    ).render();
+    
+    new Card(
+        "img/tabs/post.jpg",
+        'vegy',
+        'Меню "Постное"',
+        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+        430,
+        ".menu .container"
+    ).render();
 })
 
 
