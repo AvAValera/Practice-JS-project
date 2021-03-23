@@ -154,15 +154,19 @@ window.addEventListener('DOMContentLoaded',()=>{
                 obj[key] = value
             })
             const json = JSON.stringify(obj)
-            const res = fetch('http://localhost:3000/requests',{
+            fetch('http://localhost:3000/requests',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body : json
+            }).then(data =>{
+                console.log(data);
+                showMessageModal(messageModal.ok)
+            }).catch(() =>{
+                showMessageModal(messageModal.error)
             })
-            console.log(res.responseText);
-            return res.json()
+            
             
         })
     }
@@ -213,43 +217,38 @@ window.addEventListener('DOMContentLoaded',()=>{
     const slide = document.querySelectorAll('.offer__slide'),
         prevBtn = document.querySelector('.offer__slider-prev'),
         nextBtn = document.querySelector('.offer__slider-next'),
-        numSlide = document.querySelector('#current');
+        numSlide = document.querySelector('#current'),
+        totalSlide = document.querySelector('#total');
     let count = 1;
-    
     function hiddenSlide(){
         slide.forEach(el => el.style.display = 'none')
     }
-    
-    
     function showSlide(item){
         hiddenSlide();
         slide[item].style.display = 'block';
+        numSlide.textContent = "0" + count;
+        totalSlide.textContent = "0" + slide.length;
     }
-    function countSlide(){
-        count = localStorage.getItem('slide');
-        numSlide.textContent = '0' + count;
-        showSlide(count -1);
-        nextBtn.addEventListener('click',() =>{
-            if(count < slide.length){
-                count++;
-                numSlide.textContent = '0' + count;
-                showSlide(count -1);
-                localStorage.setItem('slide', count)
-            }
-        })
+    function clickSlide(){
         prevBtn.addEventListener('click',() =>{
-            if(count >= slide.length - count){
-                --count;
-                numSlide.textContent = '0' + count;
-                showSlide(count -1);
-                localStorage.setItem('slide', count)
+            count--
+            if(count == 0){
+                count = slide.length
             }
+            showSlide(count -1)
+        })
+        nextBtn.addEventListener('click', () =>{
+            count++
+            if(count > slide.length){
+                count = 1
+            }
+            showSlide(count - 1)
+            console.log(count);
         })
     }
-
     hiddenSlide()
-    countSlide();
-    
+    clickSlide()
+    showSlide(0)
 })
 
 

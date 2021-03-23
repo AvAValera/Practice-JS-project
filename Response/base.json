@@ -1,4 +1,7 @@
 {
-    "name": "Well",
-    "age": 34
+    "users" : [
+        "'name': 'John'",
+        "'name': 'Ann'",
+        "'name': 'Sam'"
+    ]
 }

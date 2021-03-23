@@ -1,22 +1,24 @@
-const wrapper = document.querySelector('.wrapper');
-const cube = document.querySelectorAll('.cube');
+const btn = document.querySelector('button')
+let input = document.querySelector('#inp')
 
 
-wrapper.addEventListener('click', (e) => {
-    if(e.target.classList.contains('cube')){
-        console.dir(e.target);
-        
-        e.target.classList.add('hidden');
-        setTimeout(() =>{
-            e.target.classList.remove('hidden');
-        },2000)
+
+
+
+
+
+btn.addEventListener('click', () => {
+    const obj = {
+        name: `${input.value}`
     }
+    fetch('http://localhost:3000/users',{
+        method: 'POST',
+        headers: {  
+            "Content-type": "application/json; charset=UTF-8"  
+        },  
+        body: JSON.stringify(obj)
+    })
+    
+    
 })
 
-let now = Date.parse(new Date());
-let deadLine = Date.parse('2021-3-20')
-let result = deadLine - now;
-console.log(Math.floor(result /(1000 * 60 * 60 * 24)));
-console.log(Math.floor(result / (1000 * 60 * 60) % 24));
-console.log(Math.floor(result / (1000 * 60) % 60));
-console.log(Math.floor(result / (1000) % 60));
