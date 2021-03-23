@@ -148,26 +148,22 @@ window.addEventListener('DOMContentLoaded',()=>{
     function postData(form){
         form.addEventListener('submit', (event) => {
             event.preventDefault()
-            const request =  new XMLHttpRequest()
-            request.open('POST', 'http://localhost:3000/requests');
-            request.setRequestHeader('Content-type', 'application/json')
             const formData = new FormData(form)
             const obj = {}
             formData.forEach((value, key) =>{
                 obj[key] = value
             })
             const json = JSON.stringify(obj)
-            request.send(json)
-            request.addEventListener('load', () => {
-                if (request.status == 200) {
-                    
-                    showMessageModal(messageModal.ok)
-                }
-                else{
-                    console.log(request.response);
-                    showMessageModal(messageModal.error)
-                }
+            const res = fetch('http://localhost:3000/requests',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body : json
             })
+            console.log(res.responseText);
+            return res.json()
+            
         })
     }
 
