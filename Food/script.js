@@ -1,4 +1,6 @@
 window.addEventListener('DOMContentLoaded',()=>{
+    //Tabs
+
     const tabMenu = document.querySelector('.tabheader__items'),
         tabMenuItem = tabMenu.querySelectorAll('.tabheader__item'),
         tabContainer = document.querySelectorAll('.tabcontent');
@@ -27,6 +29,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     })
     hideTab();
     showTab();
+
+    //Timer
+
     const deadLine = '2021-06-18';
     function getTime(time){
         let resultTime = Date.parse(time) - Date.parse(new Date());
@@ -73,6 +78,8 @@ window.addEventListener('DOMContentLoaded',()=>{
         second.innerHTML = '00';
     }
 
+    //Modal
+
     const btnModal = document.querySelectorAll('[data-modal]'),
         modal = document.querySelector('.modal'),
         modalClose = document.querySelector('.modal__close');
@@ -106,6 +113,66 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
     const showScrollModal = setInterval(scrollModal, 200)
 
+    //Messages modal window
+
+    const messageModal = {
+        download : 'Загрузка',
+        ok : 'Мы с Вами скоро свяжемся',
+        error : 'Возникли трудностина сайте'
+    }
+    
+    const modalContent = document.querySelector('.modal__content')
+    const modalDialog = document.querySelector('.modal__dialog')
+    
+    function showMessageModal(mess){
+        modalContent.style.visibility = 'hidden'
+        const message = document.createElement('div')
+        message.style.textAlign = 'center'
+        message.innerHTML = mess
+        message.classList.add('modal__content')
+        modalDialog.append(message)
+        setTimeout(() => {
+            message.remove()
+            modalContent.style.visibility = 'visible'
+            closeModal()
+        }, 3000)
+    }
+
+    //Post modal form message
+
+    const form = document.querySelectorAll('form')
+    
+    form.forEach((form) => {
+        postData(form)
+    })
+    function postData(form){
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            const request =  new XMLHttpRequest()
+            request.open('POST', 'http://localhost:3000/requests');
+            request.setRequestHeader('Content-type', 'application/json')
+            const formData = new FormData(form)
+            const obj = {}
+            formData.forEach((value, key) =>{
+                obj[key] = value
+            })
+            const json = JSON.stringify(obj)
+            request.send(json)
+            request.addEventListener('load', () => {
+                if (request.status == 200) {
+                    
+                    showMessageModal(messageModal.ok)
+                }
+                else{
+                    console.log(request.response);
+                    showMessageModal(messageModal.error)
+                }
+            })
+        })
+    }
+
+    //Card
+
     class Card{
         constructor(img, alt, title, text, price, parentSection, ...classesName){
             this.img = img;
@@ -135,23 +202,58 @@ window.addEventListener('DOMContentLoaded',()=>{
             this.parent.append(element);
         }
     }
-    new Card(
-        "img/tabs/vegy.jpg",
-        'vegy',
-        'Меню "Фитнес"',
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        333,
-        ".menu .container"
-    ).render();
+    async function createCard(){
+        const res = await fetch('http://localhost:3000/menu').then(data => data.json())
+        .then (data => data.forEach(({img, altimg, title, descr, price}) => {
+        new Card(img, altimg, title, descr, price, ".menu .container").render();
+    }))
+        return res
+    }
+    createCard();
+        
+
+    //Slider
+
+    const slide = document.querySelectorAll('.offer__slide'),
+        prevBtn = document.querySelector('.offer__slider-prev'),
+        nextBtn = document.querySelector('.offer__slider-next'),
+        numSlide = document.querySelector('#current');
+    let count = 1;
     
-    new Card(
-        "img/tabs/post.jpg",
-        'vegy',
-        'Меню "Постное"',
-        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-        430,
-        ".menu .container"
-    ).render();
+    function hiddenSlide(){
+        slide.forEach(el => el.style.display = 'none')
+    }
+    
+    
+    function showSlide(item){
+        hiddenSlide();
+        slide[item].style.display = 'block';
+    }
+    function countSlide(){
+        count = localStorage.getItem('slide');
+        numSlide.textContent = '0' + count;
+        showSlide(count -1);
+        nextBtn.addEventListener('click',() =>{
+            if(count < slide.length){
+                count++;
+                numSlide.textContent = '0' + count;
+                showSlide(count -1);
+                localStorage.setItem('slide', count)
+            }
+        })
+        prevBtn.addEventListener('click',() =>{
+            if(count >= slide.length - count){
+                --count;
+                numSlide.textContent = '0' + count;
+                showSlide(count -1);
+                localStorage.setItem('slide', count)
+            }
+        })
+    }
+
+    hiddenSlide()
+    countSlide();
+    
 })
 
 
