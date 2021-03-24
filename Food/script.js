@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     function showModal(){
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        clearInterval(showScrollModal);
+        // clearInterval(showScrollModal);
     }
     function closeModal(){
         modal.style.display = 'none';
@@ -108,10 +108,10 @@ window.addEventListener('DOMContentLoaded',()=>{
         if(window.pageYOffset + document.documentElement.clientHeight
             >= document.documentElement.scrollHeight){
             showModal();
-            clearInterval(showScrollModal);
+            // clearInterval(showScrollModal);
         }
     }
-    const showScrollModal = setInterval(scrollModal, 200)
+    // const showScrollModal = setInterval(scrollModal, 200)
 
     //Messages modal window
 
@@ -131,11 +131,11 @@ window.addEventListener('DOMContentLoaded',()=>{
         message.innerHTML = mess
         message.classList.add('modal__content')
         modalDialog.append(message)
-        setTimeout(() => {
-            message.remove()
-            modalContent.style.visibility = 'visible'
-            closeModal()
-        }, 3000)
+        // setTimeout(() => {
+        //     message.remove()
+        //     modalContent.style.visibility = 'visible'
+        //     closeModal()
+        // }, 3000)
     }
 
     //Post modal form message
@@ -249,6 +249,24 @@ window.addEventListener('DOMContentLoaded',()=>{
     hiddenSlide()
     clickSlide()
     showSlide(0)
+
+    //Calc
+
+    const result =document.querySelector('.calculating__result span')
+    let sex, height, weight, age, ratio
+
+    function calcTotal(){
+        if(!sex || !height || !weight || !age || !ratio){
+            result.textContent = '____'
+            return
+        }
+        if(sex === 'famele'){
+            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio
+        }else{
+            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio
+        }
+    }
+    calcTotal()
 })
 
 
