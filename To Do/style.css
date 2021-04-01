@@ -7,14 +7,14 @@
     width: 400px;
     height: 100%;
     background-color: dodgerblue ;
-    margin: 200px auto;
+    margin: 20px auto;
     border-radius: 10px;
     padding: 20px;
 }
 .container__controls{
     width: 300px;
 }
-input{
+.text-input{
     border-radius: 10px;
     height: 30px;
 }
@@ -27,9 +27,17 @@ button{
     list-style: none;
 }
 li{
-    display: block;
+    display: flex;
+    align-items:center;
     background-color: darkturquoise;
     padding: 10px;
     border-radius: 10px;
     margin: 10px auto;
+}
+.check-item{
+    margin-right: 10px;
+}
+.checked{
+    background: linear-gradient(0deg, rgba(0, 159, 161, 0.363) 18%, rgba(0, 206, 209, 0.63) 59%, rgba(0, 206, 209, 0.726) 100%);
+    text-decoration: line-through;
 }
