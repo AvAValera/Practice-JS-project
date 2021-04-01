@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 400px;
+    height: 100%;
+    background-color: dodgerblue ;
+    margin: 200px auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+.container__controls{
+    width: 300px;
+}
+input{
+    border-radius: 10px;
+    height: 30px;
+}
+button{
+    border-radius: 5px;
+    height: 30px;
+}
+.container__list{
+    margin-top: 10px;
+    list-style: none;
+}
+li{
+    display: block;
+    background-color: darkturquoise;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+}
