@@ -31,6 +31,9 @@ const createPlace = () =>
 createSector();
 
 function showPlace(){
+    const sector = document.querySelector('.data-sector');
+    const line = document.querySelector('.data-line');
+    const place = document.querySelector('.data-place')
     document.querySelector('.container')
     .addEventListener('click', (e) =>{
         if(!e.target.classList.contains('place')){
@@ -39,8 +42,9 @@ function showPlace(){
         const numPlace = e.target.dataset.place;
         const numLine = e.target.closest('.line').dataset.line;
         const numSector = e.target.closest('.sector').dataset.sector;
-        console.log(numSector);
-        
+        sector.textContent = numSector;
+        line.textContent = numLine;
+        place.textContent = numPlace;
     })
     
 }
