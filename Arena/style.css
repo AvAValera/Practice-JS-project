@@ -1,0 +1,33 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container{
+    display:flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.sector{
+    width: 250px;
+    height: 100%;
+    background-color: rgb(2, 142, 177);
+    margin: 0 20px;
+}
+.line{
+    display: flex;
+}
+.place {
+    width: 20px;
+    height: 20px;
+    margin: 2.5px;
+    background-color: rgb(70, 70, 70);
+    
+}
+.data{
+    width: 200px;
+    height: 100px;
+    background-color: chocolate;
+    margin: 20px auto;
+    border-radius: 10px;
+}

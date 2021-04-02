@@ -8,6 +8,7 @@ const list = [
 ]
 function sort (){
     list.sort((a, b) => a.ready - b.ready)
+    
 }
 
 function addItenList(array) {
@@ -39,6 +40,7 @@ function addList(){
             list.push({name : input.value, ready : false})
             input.value = '';
             addItenList(list)
+            checkElement()
         }
         else{
             message.textContent = 'Must be not empty'
@@ -60,8 +62,6 @@ function checkElement(){
                 el.parentElement.classList.remove('checked')
                 list[i].ready = false
             }
-            console.log(list);
-            
         })
     })
 }
