@@ -10,6 +10,7 @@
     margin: 20px auto;
     border-radius: 10px;
     padding: 20px;
+    box-shadow: 0 10px 10px 0px rgb(150, 150, 150);
 }
 .container__controls{
     width: 100%;
@@ -17,10 +18,14 @@
 .text-input{
     border-radius: 10px;
     height: 30px;
+    box-shadow: 0 4px 10px 0px rgb(0, 0, 0);
+    border: none;
 }
 button{
     border-radius: 5px;
     height: 30px;
+    box-shadow: 0 4px 10px 0px rgb(0, 0, 0);
+    border: none;
 }
 .message{
     display: inline-block;
@@ -35,10 +40,11 @@ button{
 li{
     display: flex;
     align-items:center;
-    background-color: darkturquoise;
+    background: linear-gradient(0deg, rgba(0,252,255,1) 0%, rgba(0,206,209,1) 100%);
     padding: 10px;
     border-radius: 10px;
     margin: 10px auto;
+    box-shadow: 0 4px 10px 0px rgb(0, 0, 0);
 }
 .check-item{
     margin-right: 10px;

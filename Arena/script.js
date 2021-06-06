@@ -39,6 +39,10 @@ function showPlace(){
         if(!e.target.classList.contains('place')){
             return;
         }
+        else{
+            e.target.classList.toggle('check-place');
+            
+        }
         const numPlace = e.target.dataset.place;
         const numLine = e.target.closest('.line').dataset.line;
         const numSector = e.target.closest('.sector').dataset.sector;
